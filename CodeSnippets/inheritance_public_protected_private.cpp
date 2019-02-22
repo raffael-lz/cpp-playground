@@ -1,3 +1,13 @@
+/* Examples for public, protected, private inheritance */
+
+/* g++ -std=c++14 inheritance_public_protected_private.cpp -o build/inheritance_public_protected_private -D _error */
+
+/*
+ *
+ *
+ *
+*/
+
 #include <iostream>
 #include <iomanip>
 
@@ -55,7 +65,9 @@ class B : protected Base
 	std::cout << "B.protectedBaseF():\tok" << std::endl;
 	std::cout << "B.privateBaseF():\terror" << std::endl;
 	protectedF();
-	//privateF();
+#if _error_
+    privateF();
+#endif
     }
     
     // a protected
@@ -113,8 +125,10 @@ int main()
     std::cout << "Access base.c:\terror" << std::endl;
 
     base.a++; // ok
-    //base.b++; // error
-    //base.c++; // error
+#if _error_
+    base.b++; // error
+    base.c++; // error
+#endif
 
     std::cout << std::endl << "A : public Base" << std::endl;
     std::cout << "Access a a:\tok" << std::endl;
@@ -122,24 +136,28 @@ int main()
     std::cout << "Access a.c:\terror" << std::endl;
 
     a.a++; // ok
-    //a.b++; // error
-    //a.c++; // error
-
+#if _error_
+    a.b++; // error
+    a.c++; // error
+#endif
     std::cout << std::endl << "B : protected Base" << std::endl;
     std::cout << "Access b a:\tnot accessible" << std::endl;
     std::cout << "Access b.b:\tnot accessible" << std::endl;
     std::cout << "Access b.c:\tnot accessible" << std::endl;
 
-    //b.a++; // ok
-    //b.b++; // error
-    //b.c++; // error
-
+#if _error_
+    b.a++; // error
+    b.b++; // error
+    b.c++; // error
+#endif
     std::cout << std::endl << "C : private Base" << std::endl;
     std::cout << "Access c a:\terror" << std::endl;
     std::cout << "Access c.b:\terror" << std::endl;
     std::cout << "Access c.c:\terror" << std::endl;
 
-    //c.a++; // ok
-    //c.b++; // error
-    //c.c++; // error
+#if _error_
+    c.a++; // error
+    c.b++; // error
+    c.c++; // error
+#endif
 }
