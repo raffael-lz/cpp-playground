@@ -31,4 +31,4 @@
 *.app
 
 # Build folders
-CodeSnippets/build/*
+CodeSnippets/bin/*
