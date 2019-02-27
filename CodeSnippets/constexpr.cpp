@@ -1,6 +1,6 @@
 /* ConstExpression vs Const */
 
-/* g++ -std=c++14 constexpr.cpp   -o build/constexpr -D _error_ */
+/* g++ -std=c++14 constexpr.cpp   -o bin/constexpr -D _error_ */
 
 /*
  * declared in C++11.
