@@ -1,6 +1,6 @@
 /* Examples for public, protected, private inheritance */
 
-/* g++ -std=c++14 inheritance_public_protected_private.cpp -o build/inheritance_public_protected_private -D _error */
+/* g++ -std=c++14 inheritance_public_protected_private.cpp -o bin/inheritance_public_protected_private -D _error */
 
 /*
  *
