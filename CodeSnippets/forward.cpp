@@ -1,7 +1,3 @@
-/* */
-
-/* g++ -std=c++14 forward.cpp -o bin/forward */
-
 /*
  * std::move cast unconditionally to rvalue, std::forward does it conditional. move casts allways, forward
  *  only sometimes (condition).
@@ -14,6 +10,9 @@
  * When dealing with universal references, then parameters passed in inside functions should be forwared.
  *  See (2) for it.
 */
+
+/* g++ -std=c++14 forward.cpp -o bin/forward */
+
 
 #include <iostream>
 
@@ -63,24 +62,24 @@ namespace my
 }
 
 // (1)
-class Planet {};
+class X {};
 
 // (1.1) rvalue parameter
-void Test2(Planet&& param)
+void Test2(X&& param)
 {
-	std::cout << " Test2: rvalue reference" << std::endl;
+	std::cout << " Test2(X&& param)" << std::endl;
 }
 
 // (1.2) lvalue parameter
-void Test2(const Planet& param)
+void Test2(const X& param)
 {
-	std::cout << " Test2: lvalue reference" << std::endl;
+	std::cout << " Test2(const X& param)" << std::endl;
 }
 
 template <typename T>
 void Test1(T&& param)
 {
-	std::cout << " Test1: "  << std::endl;
+	std::cout << " Test1(T&& param) template"  << std::endl << " ";
 	// call func and pass param
 	Test2(param);
 }
@@ -88,13 +87,13 @@ void Test1(T&& param)
 template <typename T>
 void Test1_with_forward(T&& param)
 {
-	std::cout << " Test1_with_forward: "  << std::endl;
+	std::cout << " Test1_with_forward(T&& param): "  << std::endl << " ";
 	// call func and pass param
 	Test2(std::forward<T>(param));
 }
 
 // (2)
-class Star
+class Y
 {
 	public:
 	template <typename T>
@@ -132,52 +131,66 @@ class Star
 int main()
 {
 // (1)
+std::cout << "(1)" << std::endl;
 	{
-		std::cout << "(1)" << std::endl;
-		Planet d;
-		Planet &rd = d;
-		Test1(d);   // calls (1.2) lvalue reference
-		Test1(rd);  // calls (1.2)
-		Test1(std::move(d)); // calls (1.2)
+		X x;
+		X &rx = x;
+		std::cout << "Test1(x)" << std::endl;
+		Test1(x);   // calls (1.2) lvalue reference
+
+		std::cout << "Test1(rx)" << std::endl;
+		Test1(rx);  // calls (1.2)
+
+		std::cout << "Test1(std::move(x))" << std::endl;
+		Test1(std::move(x)); // calls (1.2)
+
+		std::cout << "Test1(X())" << std::endl;
+		Test1(X()); // calls (1.2)
 	}
+	std::cout << std::endl;
 	{
-		Planet d;
-		Planet &rd = d;
-		Test1_with_forward(d);   // calls (1.2) lvalue reference
-		Test1_with_forward(rd);  // calls (1.2)
-		Test1_with_forward(std::move(d)); // calls (1.1)
+		X x;
+		X &rx = x;
+		std::cout << "Test1_with_forward(x)" << std::endl;
+		Test1_with_forward(x);   						// calls (1.2) lvalue reference
+
+		std::cout << "Test1_with_forward(rx)" << std::endl;
+		Test1_with_forward(rx);  						// calls (1.2)
+
+		std::cout << "Test1_with_forward(std::move(x))" << std::endl;
+		Test1_with_forward(std::move(x)); 	// calls (1.1)
+
+		std::cout << "Test1_with_forward(X())" << std::endl;
+		Test1_with_forward(X());
 	}
 
 // (2)
+std::cout << std::endl << "(2)" << std::endl;
 	{
-		std::cout << std::endl << "(2)" << std::endl;
 		std::cout << "setItem with std::forward and calls:" << std::endl;
-		Star d2;
-		d2.setItem("Hallo");
+		Y y;
 		std::string abc = "Hallo";
-		d2.setItem(abc);
-		if (abc.empty()) // not true
-			std::cout << "abc empty" << std::endl;
+		y.setItem("abc");
+		std::cout << "------ "<<std::endl;
+	}
 
-		std::cout << std::endl;
-
+	{
 // not doing the same calls like suggested in page 171
-
 		std::cout << "setItemWorse with overloaded functions and std::move and calls:" << std::endl;
-		Star d2_2;
-		std::cout << "---" << std::endl;
-		d2_2.setItemWorse(std::string("Hallo"));
+		Y y;
+		std::cout << "y.setItemWorse(std::string(\"Hallo\"));" << std::endl;
+		y.setItemWorse(std::string("Hallo"));
 
 		std::cout << std::endl;
 
 		std::cout << "setItemBetter with std::forward and calls:" << std::endl;
-		Star d2_3;
+		Y d2_3;
 		std::cout << "---" << std::endl;
 		d2_3.setItemBetter("Hallo");
 	}
 // (3)
+std::cout << std::endl << "(3)" << std::endl;
 	{
-		std::cout << std::endl << "(3)" << std::endl;
 		std::string s1 = "test";
 		std::string s2 = std::forward<std::string>(s1);
 		std::cout << "s1: " << s1 << "; s2: " << s2 << std::endl; // s1 is empty now
