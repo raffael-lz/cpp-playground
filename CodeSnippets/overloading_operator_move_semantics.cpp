@@ -38,7 +38,6 @@ struct X
 		X(X&& x) : i_(std::move(x.i_))
 		{
 			std::cout << "\tX::X(X&& x) i_: " << i_ << std::endl;
-			x.i_ = -1;
 		}
 
 		// destructor
@@ -48,7 +47,7 @@ struct X
 		}
 
 		// copy assigment operator
-		X& operator=(const X& rhs)
+		/*X& operator=(const X& rhs)
 		{
 			std::cout << "\tX::operator=(const X& rhs) i_ old: " << i_;
 			i_ = rhs.i_;
@@ -65,20 +64,18 @@ struct X
 			std::cout << " i_ new: " << i_ << std::endl;
 
 		 return *this;
-	 	}
+	 }*/
 
-		// cannot be used if we want move semantics (here RVO)
-		// unary operator+ accepting const lvalue reference
-		/*X operator+(const X& rhs)
-		{
-			std::cout << "X::operator+(const X& rhs): i_ + rhs.i_ =  " << i_ + rhs.i_ << std::endl;
-			return X(i_ + rhs.i_);
-		}*/
-
-		int  i_;
+		//int  i_;
+		int i_;
 };
 
-X operator+(const X& lhs, X&& rhs)
+void func(const X& x)
+{
+	std::cout << "func(X x) x.i_: " << x.i_ << std::endl;
+}
+
+X&& operator+(const X& lhs, X&& rhs)
 {
 	std::cout << "\toperator+(const X& lhs, X&& rhs) - return std::move(rhs) " << rhs.i_ << " + " << lhs.i_ << std::endl;
 	rhs.i_ += lhs.i_;
@@ -86,7 +83,7 @@ X operator+(const X& lhs, X&& rhs)
 }
 
 // operator when lhs is rvalue reference and rhs is lvalue reference, then move is used.
-X operator+(X&& lhs, const X& rhs)
+X&& operator+(X&& lhs, const X& rhs)
 {
 	std::cout << "\toperator+(X&& lhs, const X& rhs) - return std::move(lhs) " << rhs.i_ << " + " << lhs.i_ << std::endl;
 	lhs.i_ += rhs.i_;
@@ -94,7 +91,7 @@ X operator+(X&& lhs, const X& rhs)
 }
 
 // operator when lhs is rvalue reference and rhs is lvalue reference, then move is used.
-X operator+(X&& lhs, X&& rhs)
+X&& operator+(X&& lhs, X&& rhs)
 {
 	std::cout << "\toperator+(X&& lhs, X&& rhs) - return std::move(lhs) " << rhs.i_ << " + " << lhs.i_ << std::endl;
 	lhs.i_ += rhs.i_;
@@ -210,13 +207,14 @@ int main()
 		std::cout << std::endl;
 		std::cout << "- sum:" << std::endl;
 
-		X&& x_sum = (x_1 + 100 )+ 50; // TODO test when returning ref &&
+		//X x_sum = (x_1 + 100 )+ 50; // TODO test when returning ref &&
 		//x_sum = x_sum + 10;
+
+		func(x_1 + 100  + 50);
 
 		std::cout << std::endl;
 		std::cout << "- destructor calls after sum is done:" << std::endl;
+
 	}
 #endif
-
-
 }
