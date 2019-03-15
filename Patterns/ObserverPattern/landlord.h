@@ -1,20 +1,20 @@
 #ifndef __LANDLORD_H__
 #define __LANDLORD_H__
 
-#include "observer.h"
+#include "subscriber.h"
 
-class Subject; // forward declaration
+class Publisher; // forward declaration
 
-class LandLord : public Observer
+class LandLord : public Subscriber
 {
 public:
-	LandLord(Subject* subject);
+	LandLord(Publisher* publisher);
 	virtual ~LandLord();
 	// from observer
-	virtual void Update(Subject* subject) override;
+	virtual void Update(Publisher* publisher) override;
 
 private:
-	Subject* subject_;
+	Publisher* publisher_;
 };
 
-#endif
+#endif // __LANDLORD_H__

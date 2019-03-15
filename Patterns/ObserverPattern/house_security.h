@@ -1,9 +1,9 @@
 #ifndef __HOUSE_SECURITY_H__
 #define __HOUSE_SECURITY_H__
 
-#include "subject.h"
+#include "publisher.h"
 
-class HouseSecurity : public Subject
+class HouseSecurity : public Publisher
 {
 public:
 	void SecurityBreach();

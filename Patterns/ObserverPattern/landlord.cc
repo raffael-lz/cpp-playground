@@ -1,25 +1,25 @@
 #include <iostream>
 
 #include "landlord.h"
-#include "subject.h"
+#include "publisher.h"
 
-LandLord::LandLord(Subject* subject) :
-	subject_(subject)
+LandLord::LandLord(Publisher* publisher) :
+	publisher_(publisher)
 {
-	std::cout << " LandLord::LandLord() register subject" << std::endl;
-	subject_->Register(this);
+	std::cout << " LandLord::LandLord() subscribe to publisher" << std::endl;
+	publisher_->Subscribe(this);
 }
 
 LandLord::~LandLord()
 {
-	std::cout << " LandLord::~LandLord() unregister subject" << std::endl;
-	subject_->Unregister(this);
+	std::cout << " LandLord::~LandLord() unsubscribe to publisher" << std::endl;
+	publisher_->Unsubscribe(this);
 }
 
-void LandLord::Update(Subject* subject)
+void LandLord::Update(Publisher* publisher)
 {
-	if(subject == subject_)
+	if(publisher == publisher_)
 	{
-		std::cout << " LandLord::Update() for subject called" << std::endl;
+		std::cout << " LandLord::Update() event recevied from publisher" << std::endl;
 	}
 }

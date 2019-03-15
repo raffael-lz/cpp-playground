@@ -1,20 +1,21 @@
 #ifndef __POLICE_H__
 #define __POLICE_H__
 
-#include "observer.h"
+#include "subscriber.h"
 
-class Subject; // forward declaration
+class Publisher; // forward declaration
 
-class Police : public Observer
+class Police : public Subscriber
 {
 public:
-	Police(Subject* subject);
+	Police(Publisher* publisher);
 	virtual ~Police();
+
 	// from observer
-	virtual void Update(Subject* subject) override;
+	virtual void Update(Publisher* publisher) override;
 
 private:
-	Subject* subject_;
+	Publisher* publisher_;
 };
 
-#endif
+#endif // __POLICE_H__

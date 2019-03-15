@@ -1,25 +1,25 @@
 #include <iostream>
 
 #include "police.h"
-#include "subject.h"
+#include "publisher.h"
 
-Police::Police(Subject* subject) :
-	subject_(subject)
+Police::Police(Publisher* publisher) :
+	publisher_(publisher)
 {
-	std::cout << " Police::Police() register subject" << std::endl;
-	subject_->Register(this);
+	std::cout << " Police::Police() subscribe to publisher" << std::endl;
+	publisher_->Subscribe(this);
 }
 
 Police::~Police()
 {
-	std::cout << " Police::~Police() unregister subject" << std::endl;
-	subject_->Unregister(this);
+	std::cout << " Police::~Police() unsubscribe to publisher" << std::endl;
+	publisher_->Unsubscribe(this);
 }
 
-void Police::Update(Subject* subject)
+void Police::Update(Publisher* publisher)
 {
-	if(subject == subject_)
+	if(publisher == publisher_)
 	{
-		std::cout << " Police::Update() for subject called" << std::endl;
+		std::cout << " Police::Update() event received from publisher" << std::endl;
 	}
 }
