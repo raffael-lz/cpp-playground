@@ -3,7 +3,8 @@
 #include "police.h"
 #include "publisher.h"
 
-Police::Police(Publisher* publisher) :
+template <typename Subscriber>
+Police<Subscriber>::Police(Publisher<Subscriber>* publisher) :
 	publisher_(publisher)
 {
 	std::cout << " Police::Police() subscribe to publisher" << std::endl;
@@ -11,16 +12,20 @@ Police::Police(Publisher* publisher) :
 	publisher_->Subscribe(func);
 }
 
-Police::~Police()
+template <typename Subscriber>
+Police<Subscriber>::~Police()
 {
 	std::cout << " Police::~Police() unsubscribe to publisher" << std::endl;
 	//publisher_->Unsubscribe(this);
 }
 
-void Police::Alarm()
+template <typename Subscriber>
+void Police<Subscriber>::Alarm()
 {
 	//if(publisher == publisher_)
 	//{
 		std::cout << " Police::Alarm() event received from publisher" << std::endl;
 	//}
 }
+
+template class Police<std::function<void()>>;

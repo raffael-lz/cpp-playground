@@ -3,7 +3,8 @@
 
 #include "publisher.h"
 
-class HouseSecurity : public Publisher
+template <typename Subscriber>
+class HouseSecurity : public Publisher<Subscriber>
 {
 public:
 	void SecurityBreach();

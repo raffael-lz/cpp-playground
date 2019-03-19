@@ -4,7 +4,8 @@
 #include "landlord.h"
 #include "publisher.h"
 
-LandLord::LandLord(Publisher* publisher) :
+template<typename Subscriber>
+LandLord<Subscriber>::LandLord(Publisher<Subscriber>* publisher) :
 	publisher_(publisher)
 {
 	std::cout << " LandLord::LandLord() subscribe to publisher" << std::endl;
@@ -12,16 +13,20 @@ LandLord::LandLord(Publisher* publisher) :
 	publisher_->Subscribe(func);
 }
 
-LandLord::~LandLord()
+template <typename Subscriber>
+LandLord<Subscriber>::~LandLord()
 {
 	std::cout << " LandLord::~LandLord() unsubscribe to publisher" << std::endl;
 	//publisher_->Unsubscribe(this);
 }
 
-void LandLord::SecurityBreach()
+template <typename Subscriber>
+void LandLord<Subscriber>::SecurityBreach()
 {
 	//if(publisher == publisher_)
 	//{
 		std::cout << " LandLord::SecurityBreach() event recevied from publisher" << std::endl;
 	//}
 }
+
+template class LandLord<std::function<void()>>;

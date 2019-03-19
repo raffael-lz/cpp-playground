@@ -1,6 +1,9 @@
 #include "house_security.h"
 
-void HouseSecurity::SecurityBreach()
+template <typename Subscriber>
+void HouseSecurity<Subscriber>::SecurityBreach()
 {
-	Notify();
+	this->Notify();
 }
+
+template class HouseSecurity<std::function<void()>>;

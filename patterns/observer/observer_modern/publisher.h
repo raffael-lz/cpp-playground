@@ -4,6 +4,7 @@
 #include <vector>
 #include <functional>
 
+template<typename Subscriber>
 class Publisher
 {
 public:
@@ -12,18 +13,18 @@ public:
 
 	}
 
-	void Subscribe(std::function<void()>& func)
+	void Subscribe(Subscriber& subscriber)
 	{
-		subscribers_.push_back(func);
+		subscribers_.emplace_back(subscriber);
 	}
 	void Unsubscribe(/*std::function<void()>& func*/)
 	{
 
 	}
 
-	void Notify()
+	void Notify() const
 	{
-		for (auto& subscriber : subscribers_)
+		for (const auto& subscriber : subscribers_)
 		{
 			subscriber();
 		}
@@ -37,7 +38,7 @@ protected:
 
 private:
 
-	std::vector<std::function<void()>> subscribers_;
+	std::vector<Subscriber> subscribers_;
 };
 
 #endif // __PUBLISHER_H__
