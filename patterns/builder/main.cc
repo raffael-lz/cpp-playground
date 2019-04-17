@@ -10,11 +10,6 @@ int main()
 	Person p = Person::create()
 			.lives().Street("abcStreet 123").Zip("123456789").City("barCity")
 			.works().Company("fooCorp").Position("cc").Salary(9999);
-
-	// P has type jobbuilder???
-	//auto p = Person::create()
-	//			.lives().Street("abcStreet 123").Zip("123456789").City("barCity")
-	//			.works().Company("fooCorp").Position("cc").Salary(9999);
-
+			
 	std::cout << p;
 }

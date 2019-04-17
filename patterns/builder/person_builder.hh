@@ -14,7 +14,7 @@ public:
 	AddressBuilder lives() const;
 	JobBuilder works() const;
 
-	operator Person()
+	operator Person() const
 	{
 		return std::move(person_);
 	}
