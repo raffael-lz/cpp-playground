@@ -31,5 +31,5 @@
 *.app
 
 # Build folders
-bin/
+*bazel*
 
