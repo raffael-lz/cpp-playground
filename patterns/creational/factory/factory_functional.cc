@@ -1,5 +1,3 @@
-/* clang++ functional_factory.cc -o functional_factory -std=c++14 -Werror */
-
 // in functional factory, factories are represented as lambda functions i.e.
 
 #include <map>

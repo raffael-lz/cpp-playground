@@ -27,7 +27,7 @@ class Circle : public Shape
 };
 
 class Square : public Shape
-{ 
+{
     public:
     Square(float length) : length(length) {};
 
@@ -52,7 +52,7 @@ template <typename T>
 struct ColorShape : T
 {
     template <typename ...Args>
-    ColorShape(string color, Args... args) : color_(color), T(std::forward<Args>(args)...)
+    ColorShape(string color, Args... args) : T(std::forward<Args>(args)...), color_(color)
     {
     }
 
@@ -75,7 +75,7 @@ int main()
     Square s{5.0};
     s.resize(2.0);
     cout << s.str() << endl;
-    
+
     // extendes objects
     ColorShape<Circle> color_circle{"red", 5.f};
     cout << color_circle.str() << endl;

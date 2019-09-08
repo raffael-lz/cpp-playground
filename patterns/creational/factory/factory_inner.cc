@@ -1,4 +1,4 @@
-/* clang++ inner_factory.cc -o inner_factory -std=c++14 -Werror */
+// factory class nested in main class offers static methods as factory to create objects.
 
 #include <cmath>
 

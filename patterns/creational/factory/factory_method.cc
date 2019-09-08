@@ -1,4 +1,4 @@
-/* clang++ factory_method.cc -o factory_method -std=c++14 -Werror */
+// factory method offers static methods as factory to create objects.
 
 #include <cmath>
 

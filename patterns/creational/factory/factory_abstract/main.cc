@@ -1,5 +1,3 @@
-/*clang++ main.cc -o main -std=c++14 -Werror */
-
 #include <memory>
 #include <vector>
 
