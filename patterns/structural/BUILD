@@ -12,3 +12,8 @@ cc_binary(
   name = "decorator_static",
   srcs = ["decorator/static_decorator.cc"],
 )
+
+cc_binary(
+  name = "proxy_property",
+  srcs = ["proxy/property_proxy.cc"],
+)
