@@ -14,3 +14,8 @@ void f()
 
     std::cout << __FILE_NAME__ << "::" << __FUNCTION__ << " exit: "<< std::endl << std::endl;
 }
+
+void bf() // no duplicate definition because other bf() is in unnamed namespace
+{
+    std::cout << __FILE_NAME__ << "::" << __FUNCTION__ << std::endl;
+}
